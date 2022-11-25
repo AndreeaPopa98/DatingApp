@@ -35,15 +35,6 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
-
-            //try
-            //{
-
-            //}
-            //catch(Exception ex)
-            //{
-            //    return StatusCode(500, "")
-            //}
             var thing = _context.Users.Find(-1);
 
             var thingToReturn = thing.ToString();
