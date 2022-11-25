@@ -42,7 +42,6 @@ export class MemberDetailComponent implements OnInit {
     if (!this.member) return [];
     const imageUrls = [];
     for (const photo of this.member.photos) {
-      console.log(photo.url);
       imageUrls.push({
         small: photo.url,
         medium: photo.url,
