@@ -1,5 +1,3 @@
-import { User } from './user';
-
 export class UserParams {
   gender!: string;
   minAge: number = 18;
