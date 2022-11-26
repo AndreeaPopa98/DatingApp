@@ -7,6 +7,7 @@
     placeholder="{{ label }}"
     bsDatepicker
     [bsConfig]="bsConfig"
+    [maxDate]="maxDate"
   />
   <div *ngIf="control.errors?.['required']" class="invalid-feedback">
     {{ label }} is required

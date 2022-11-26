@@ -9,6 +9,8 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class DatePickerComponent implements ControlValueAccessor {
   @Input() label = '';
+  @Input() maxDate: Date | undefined;
+
   bsConfig: Partial<BsDatepickerConfig> | undefined;
 
   constructor(@Self() public ngControl: NgControl) {
