@@ -1,0 +1,19 @@
+.nv-file-over {
+  border: dotted 3px red;
+}
+
+input[type="file"] {
+  color: transparent;
+}
+
+.file-uploader {
+  cursor: pointer;
+}
+
+.file-uploader:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.hidden {
+  display: none;
+}
