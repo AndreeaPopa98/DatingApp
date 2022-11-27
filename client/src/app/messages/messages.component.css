@@ -1,0 +1,15 @@
+.messages-table {
+  cursor: pointer;
+}
+
+.messages-table th {
+  width: 20%;
+}
+
+.messages-table th:first-of-type {
+  width: 40%;
+}
+
+.img-circle {
+  max-height: 50px;
+}
