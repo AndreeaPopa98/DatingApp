@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -20,10 +19,15 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
   maxDate: Date = new Date();
+  faculties: any[] = [];
+  cycles: any[] = [];
+  specializations: any[] = [];
+  selectedFaculty: number;
+  selectedCycle: number;
+  selectedSpecialization: number;
 
   constructor(
     private accountService: AccountService,
-    private toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router
   ) {}
@@ -31,6 +35,28 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+    this.loadFaculties();
+  }
+
+  selectFaculty(event: any) {
+    this.specializations = [];
+    this.selectedFaculty = event.target.value;
+    if (this.selectedCycle) this.selectSpecialization();
+  }
+
+  selectCycle(event: any) {
+    this.selectedCycle = event.target.value;
+    if (this.selectedFaculty) this.selectSpecialization();
+  }
+
+  selectSpecialization() {
+    this.accountService
+      .getSpecializations(this.selectedFaculty, this.selectedCycle)
+      .subscribe({
+        next: (sp) => {
+          this.specializations = sp;
+        },
+      });
   }
 
   initializeForm() {
@@ -41,6 +67,7 @@ export class RegisterComponent implements OnInit {
       dateOfBirth: ['', Validators.required],
       city: ['', Validators.required],
       country: ['', Validators.required],
+      specializationId: ['', Validators.required],
       password: [
         '',
         [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
@@ -55,6 +82,8 @@ export class RegisterComponent implements OnInit {
         this.registerForm.controls['confirmPassword'].updateValueAndValidity();
       },
     });
+    this.registerForm.removeControl('faculty');
+    this.registerForm.removeControl('cycle');
   }
 
   matchValues(matchTo: string): ValidatorFn {
@@ -92,5 +121,19 @@ export class RegisterComponent implements OnInit {
     )
       .toISOString()
       .slice(0, 10);
+  }
+
+  private loadFaculties() {
+    this.accountService.getFaculties().subscribe({
+      next: (faculties) => (this.faculties = faculties),
+    });
+
+    this.accountService.getCycles().subscribe({
+      next: (cycles) => (this.cycles = cycles),
+    });
+
+    this.selectedFaculty = 1;
+    this.selectedCycle = 1;
+    this.selectSpecialization();
   }
 }

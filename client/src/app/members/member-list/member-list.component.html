@@ -44,6 +44,21 @@
       </select>
     </div>
 
+    <div class="d-flex px-2">
+      <label class="col-form-label me-2">Faculties: </label>
+      <select
+        name="faculty"
+        style="width: 150px"
+        class="form-select ms-1"
+        [(ngModel)]="userParams.faculty"
+      >
+        <option [value]="0">All</option>
+        <option *ngFor="let fac of faculties" [value]="fac.id">
+          {{ fac.shortName }}
+        </option>
+      </select>
+    </div>
+
     <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
     <button class="btn btn-info ms-1" (click)="resetFilters()">
       Reset Filters

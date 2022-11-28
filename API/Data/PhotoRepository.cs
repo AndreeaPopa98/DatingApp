@@ -12,8 +12,7 @@ namespace API.Data
         {
             _context = context;
         }
-        public async Task<IEnumerable<PhotoForApprovalDto>>
-        GetUnapprovedPhotos()
+        public async Task<IEnumerable<PhotoForApprovalDto>> GetUnapprovedPhotos()
         {
             return await _context.Photos
             .IgnoreQueryFilters()

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Faculty } from 'src/app/_models/faculty';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
 import { UserParams } from 'src/app/_models/userParams';
+import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -13,17 +15,23 @@ export class MemberListComponent implements OnInit {
   members: Member[] = [];
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
-
   genderList = [
     { value: 'everyone', display: 'Everyone' },
     { value: 'male', display: 'Males' },
     { value: 'female', display: 'Females' },
   ];
-  constructor(private memberService: MembersService) {
+
+  faculties: Faculty[] = [];
+
+  constructor(
+    private memberService: MembersService,
+    private accountService: AccountService
+  ) {
     this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
+    this.setFaculties();
     this.loadMembers();
   }
 
@@ -41,6 +49,12 @@ export class MemberListComponent implements OnInit {
     }
   }
 
+  setFaculties() {
+    this.accountService.getFaculties().subscribe({
+      next: (fac) => (this.faculties = fac),
+    });
+  }
+
   resetFilters() {
     this.userParams = this.memberService.resetUserParams();
     this.loadMembers();
@@ -50,6 +64,7 @@ export class MemberListComponent implements OnInit {
     if (this.userParams && this.userParams.pageNumber !== event.page) {
       this.userParams.pageNumber = event.page;
       this.memberService.setUserParams(this.userParams);
+      console.log(this.userParams);
       this.loadMembers();
     }
   }

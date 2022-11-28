@@ -38,7 +38,11 @@
         "
         ><i class="fa fa-user me-2"></i
       ></span>
-      {{ member.knownAs }}, {{ member.age }}
+      <span>
+        {{ member.knownAs }}, {{ member.age }}, {{ member.facultyShortName }},
+      </span>
+      <br />
+      <span>{{ member.specializationName }}</span>
     </h6>
     <p class="card-text text-muted text-center">{{ member.city }}</p>
   </div>

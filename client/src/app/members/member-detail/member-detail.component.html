@@ -17,9 +17,17 @@
           <i class="fa fa-user-circle text-success me-2"></i>Online now
         </div>
         <div>
+          <strong>Faculty:</strong>
+          <p>{{ member.facultyShortName }}</p>
+        </div>
+        <div>
+          <strong>Specialization:</strong>
+          <p>{{ member.specializationName }}</p>
+        </div>
+        <span>
           <strong>Location:</strong>
           <p>{{ member.city }}, {{ member.country }}</p>
-        </div>
+        </span>
         <div>
           <strong>Age:</strong>
           <p>{{ member.age }}</p>
@@ -35,9 +43,11 @@
       </div>
       <div class="card-footer">
         <div class="btn-group d-flex">
-          <button class="btn btn-primary">Like</button>
+          <button class="btn btn-primary" (click)="addLike(member)">
+            Like <i class="fa fa-thumbs-up"></i>
+          </button>
           <button class="btn btn-success" (click)="selectTab('Messages')">
-            Messages
+            Messages <i class="fa fa-envelope"></i>
           </button>
         </div>
       </div>

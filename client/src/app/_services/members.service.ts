@@ -43,7 +43,6 @@ export class MembersService {
   resetUserParams() {
     if (this.user) {
       this.userParams = new UserParams();
-
       return this.userParams;
     }
     return;
@@ -62,6 +61,8 @@ export class MembersService {
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
+    params = params.append('faculty', Number(userParams.faculty));
+
     return getPaginatedResult<Member[]>(
       this.baseUrl + 'users',
       params,
@@ -115,5 +116,9 @@ export class MembersService {
       params,
       this.http
     );
+  }
+
+  getFaculties() {
+    return this.http.get<any>(this.baseUrl + 'faculties');
   }
 }

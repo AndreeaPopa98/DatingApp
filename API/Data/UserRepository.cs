@@ -40,6 +40,11 @@ namespace API.Data
             {
                 query = query.Where(u => u.Gender == userParams.Gender);
             }
+
+            if(userParams.Faculty != 0)
+            {
+                query = query.Where(u => u.Specialization.Faculty.Id == userParams.Faculty);
+            }
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
 

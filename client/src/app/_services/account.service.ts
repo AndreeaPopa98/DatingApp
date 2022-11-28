@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { query } from '@angular/animations';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import * as internal from 'stream';
 import { User } from '../_models/user';
 import { PresenceService } from './presence.service';
 
@@ -39,6 +41,24 @@ export class AccountService {
         return user;
       })
     );
+  }
+
+  getFaculties() {
+    return this.http.get<any>(this.baseUrl + 'faculties');
+  }
+
+  getCycles() {
+    return this.http.get<any>(this.baseUrl + 'faculties/cycles');
+  }
+
+  getSpecializations(idFaculty: number, idCycle: number) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('idFaculty', idFaculty);
+    queryParams = queryParams.append('idCycle', idCycle);
+
+    return this.http.get<any>(this.baseUrl + 'faculties/specializations', {
+      params: queryParams,
+    });
   }
 
   setCurrentUser(user: User) {

@@ -18,6 +18,9 @@ namespace API.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<FacultyCycle> FacultyCycles { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -47,6 +47,44 @@
     [formControl]="$any(registerForm.controls['country'])"
     [label]="'Country'"
   ></app-text-input>
+  <div class="form-group">
+    <label for="selectAction">Choose Faculty</label>
+    <select class="form-control" (change)="selectFaculty($event)">
+      <option *ngFor="let fac of faculties" [value]="fac.id">
+        {{ fac.shortName }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="selectAction">Choose Cycle</label>
+    <select class="form-control" (change)="selectCycle($event)">
+      <option *ngFor="let cycle of cycles" [value]="cycle.id">
+        {{ cycle.cycleName }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="selectAction">Choose Specialization</label>
+    <select
+      [class.is-invalid]="
+        registerForm.get('specializationId')?.errors &&
+        registerForm.get('specializationId').touched
+      "
+      class="form-control"
+      formControlName="specializationId"
+    >
+      <option *ngFor="let sp of specializations" [value]="sp.id">
+        {{ sp.name }}
+      </option>
+    </select>
+    <div
+      class="invalid-feedback"
+      *ngIf="registerForm.get('specializationId').hasError('required')"
+    >
+      Please choose a specialization
+    </div>
+  </div>
+  <br />
   <app-text-input
     [formControl]="$any(registerForm.controls['password'])"
     [label]="'Password'"

@@ -23,5 +23,9 @@ namespace API.Entities
         public List<Message> MessagesReceived { get; set; }
 
         public ICollection<AppUserRole> UserRoles { get; set; }
+        public Specialization Specialization { get; set; }
+
+        public int SpecializationId { get; set; }
+
     }
 }
