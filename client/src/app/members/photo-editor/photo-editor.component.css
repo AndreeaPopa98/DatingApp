@@ -17,3 +17,17 @@ input[type="file"] {
 .hidden {
   display: none;
 }
+
+.not-approved {
+  opacity: 0.3;
+}
+
+.img-wrapper {
+  position: relative;
+}
+
+.img-text {
+  position: absolute;
+  bottom: 30%;
+  left: 18%;
+}
