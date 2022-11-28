@@ -3,6 +3,7 @@ using API.Extensions;
 using API.Interfaces;
 using API.Middleware;
 using API.Services;
+using API.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -24,6 +25,7 @@ namespace API
         {
             services.AddApplicationServices(_config);
             services.AddControllers();
+       
             services.AddCors();
             services.AddIdentityServices(_config);        
         }
@@ -44,7 +46,7 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyMethod().WithOrigins("https://localhost:4200").AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200").AllowAnyHeader());
 
             app.UseAuthentication();
 
@@ -53,7 +55,10 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
+
         }
     }
 }
