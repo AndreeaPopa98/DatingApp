@@ -5,8 +5,10 @@
     </div>
 
     <ul
+      #scrollMe
+      [scrollTop]="scrollMe.scrollHeight"
       *ngIf="(messageService.messageThread$ | async)?.length > 0"
-      class="chat"
+      class="chat scrollable-list"
     >
       <li *ngFor="let message of messageService.messageThread$ | async">
         <div>
